@@ -127,7 +127,6 @@ void TicTacToe::stopGame()
             Bit* b = _grid[y][x].bit();
             if(b){
                 _grid[y][x].destroyBit();
-                _grid[y][x].setBit(nullptr);
             }
         }
     }
@@ -290,7 +289,6 @@ void TicTacToe::setStateString(const std::string &s)
         if (_grid[y][x].bit())
         {
             _grid[y][x].destroyBit();
-            _grid[y][x].setBit(nullptr);
         }
 
         int val = s[i] - '0';
