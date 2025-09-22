@@ -183,7 +183,7 @@ Player* TicTacToe::checkForWinner()
         // check last square
         Player* z = ownerAt(c[2]);
         if (x && y == x && z == x)
-            Log::log(WARNING,"A WINNER HAS BEEN FOUND");
+            //Log::log(WARNING,"A WINNER HAS BEEN FOUND");
             return x;
     }
 
