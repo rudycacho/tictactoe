@@ -27,6 +27,7 @@
 
 const int AI_PLAYER   = 1;      // index of the AI player (O)
 const int HUMAN_PLAYER= 0;      // index of the human player (X)
+bool gameEnded = false;
 
 TicTacToe::TicTacToe()
 {
@@ -78,6 +79,8 @@ void TicTacToe::setUpBoard()
 //
 bool TicTacToe::actionForEmptyHolder(BitHolder *holder)
 {
+    // special rudy check if game is finished
+    if(gameEnded) return false;
     // 1) Guard clause: if holder is nullptr, fail fast.
     //    (Beginner hint: always check pointers before using them.)
     if (!holder) return false;
@@ -130,6 +133,7 @@ void TicTacToe::stopGame()
             }
         }
     }
+    gameEnded = false;
     Log::log(INFO,"GAME HAS STOPPED");
 }
 
@@ -181,9 +185,10 @@ Player* TicTacToe::checkForWinner()
         Player* y = ownerAt(c[1]);
         // check last square
         Player* z = ownerAt(c[2]);
-        if (x && y == x && z == x)
-            //Log::log(WARNING,"A WINNER HAS BEEN FOUND");
+        if (x && y == x && z == x){
+            gameEnded = true;
             return x;
+        }
     }
 
     return nullptr;
@@ -202,8 +207,9 @@ bool TicTacToe::checkForDraw()
         }
     }
     // otherwise return true
-    return true;
+    gameEnded = true;
     Log::log(INFO,"GAME WAS A TIE");
+    return true;
 }
 
 //
